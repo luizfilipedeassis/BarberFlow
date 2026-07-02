@@ -43,4 +43,32 @@ function createClient(req, res, next) {
   }
 }
 
-module.exports = { listClients, createClient };
+function deleteClient(req, res, next) {
+  try {
+    const database = readDatabase();
+    const id = Number(req.params.id);
+    const index = database.clients.findIndex((client) => client.id === id);
+
+    if (index === -1) {
+      return res.status(404).json({ message: 'Cliente não encontrado.' });
+    }
+
+    const hasAppointments = database.appointments.some(
+      (appointment) => appointment.clientId === id
+    );
+
+    if (hasAppointments) {
+      return res.status(409).json({
+        message: 'Este cliente possui agendamentos. Exclua os agendamentos antes de excluir o cliente.'
+      });
+    }
+
+    database.clients.splice(index, 1);
+    writeDatabase(database);
+    return res.status(204).send();
+  } catch (error) {
+    return next(error);
+  }
+}
+
+module.exports = { listClients, createClient, deleteClient };

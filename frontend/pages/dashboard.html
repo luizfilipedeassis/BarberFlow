@@ -18,7 +18,7 @@
       <nav class="sidebar-nav" aria-label="Navegação principal">
         <a class="nav-link" data-page="dashboard" href="dashboard.html">Visão geral</a>
         <a class="nav-link" data-page="clients" href="clients.html">Clientes</a>
-        <span class="nav-link nav-disabled" title="Disponível em breve">Agendamentos</span>
+        <a class="nav-link" data-page="appointments" href="appointments.html">Agendamentos</a>
       </nav>
 
       <button class="btn btn-secondary logout-btn" data-logout>
@@ -57,10 +57,7 @@
             <p>Os cinco atendimentos mais próximos.</p>
           </div>
         </div>
-        <div class="empty-state">
-          <strong>Nenhum horário próximo</strong>
-          Os agendamentos aparecerão aqui quando forem cadastrados.
-        </div>
+        <div id="dashboardAppointments" class="table-wrap"></div>
       </section>
     </main>
   </div>

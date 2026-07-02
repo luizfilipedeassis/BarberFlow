@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agendamentos | BarberFlow</title>
+  <link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="dashboard.html"><span class="brand-mark">BF</span><span>BarberFlow</span></a>
+      <nav class="sidebar-nav" aria-label="Navegação principal">
+        <a class="nav-link" data-page="dashboard" href="dashboard.html">Visão geral</a>
+        <a class="nav-link" data-page="clients" href="clients.html">Clientes</a>
+        <a class="nav-link" data-page="appointments" href="appointments.html">Agendamentos</a>
+      </nav>
+      <button class="btn btn-secondary logout-btn" data-logout><span>Sair</span> →</button>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="page-title">
+          <h1>Agendamentos</h1>
+          <p>Consulte os horários da barbearia.</p>
+        </div>
+        <a class="btn btn-primary" href="appointment-form.html">+ Novo agendamento</a>
+      </header>
+
+      <section class="panel">
+        <div class="panel-header">
+          <div><h2>Agenda da barbearia</h2><p id="appointmentSummary">Carregando...</p></div>
+          <input class="search-box" id="appointmentSearch" aria-label="Buscar agendamento" placeholder="Buscar por cliente ou serviço...">
+        </div>
+        <div id="appointmentList" class="table-wrap"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="../js/common.js"></script>
+  <script src="../js/appointments.js"></script>
+</body>
+</html>

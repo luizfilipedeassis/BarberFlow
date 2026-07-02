@@ -36,6 +36,11 @@ function escapeHtml(value = '') {
   return element.innerHTML;
 }
 
+function formatDate(date) {
+  return new Intl.DateTimeFormat('pt-BR', { timeZone: 'UTC' })
+    .format(new Date(`${date}T00:00:00Z`));
+}
+
 function logout() {
   sessionStorage.removeItem('barberflow_auth');
   window.location.href = '/index.html';
@@ -45,4 +50,10 @@ function setupLayout(activePage) {
   requireAuth();
   document.querySelector(`[data-page="${activePage}"]`)?.classList.add('active');
   document.querySelector('[data-logout]')?.addEventListener('click', logout);
+
+  const message = sessionStorage.getItem('barberflow_message');
+  if (message) {
+    showToast(message);
+    sessionStorage.removeItem('barberflow_message');
+  }
 }

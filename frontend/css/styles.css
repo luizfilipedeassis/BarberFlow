@@ -445,6 +445,34 @@ tbody tr:hover {
   max-width: 280px;
 }
 
+.badge {
+  padding: 5px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.badge-agendado {
+  color: #f1ce82;
+  background: rgba(214, 167, 75, 0.14);
+}
+
+.badge-concluído {
+  color: #8bd1a6;
+  background: rgba(101, 185, 133, 0.14);
+}
+
+.badge-cancelado {
+  color: #ee9090;
+  background: rgba(224, 103, 103, 0.14);
+}
+
+.notes-preview {
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .toast {
   position: fixed;
   right: 24px;

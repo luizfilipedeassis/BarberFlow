@@ -2,6 +2,26 @@ const { readDatabase, writeDatabase, nextId } = require('./storage');
 
 const allowedStatuses = ['Agendado', 'Concluído', 'Cancelado'];
 
+function enrichAppointment(appointment, clients) {
+  const client = clients.find((item) => item.id === appointment.clientId);
+  return { ...appointment, client };
+}
+
+function listAppointments(req, res, next) {
+  try {
+    const database = readDatabase();
+    const appointments = database.appointments
+      .map((appointment) => enrichAppointment(appointment, database.clients))
+      .sort((first, second) =>
+        `${first.date} ${first.time}`.localeCompare(`${second.date} ${second.time}`)
+      );
+
+    res.json(appointments);
+  } catch (error) {
+    next(error);
+  }
+}
+
 function validateAppointment(body, database) {
   const { clientId, service, date, time, status = 'Agendado' } = body;
 
@@ -52,10 +72,10 @@ function createAppointment(req, res, next) {
 
     database.appointments.push(appointment);
     writeDatabase(database);
-    return res.status(201).json(appointment);
+    return res.status(201).json(enrichAppointment(appointment, database.clients));
   } catch (error) {
     return next(error);
   }
 }
 
-module.exports = { createAppointment };
+module.exports = { listAppointments, createAppointment };

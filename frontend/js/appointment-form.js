@@ -33,9 +33,8 @@ form.addEventListener('submit', async (event) => {
       method: 'POST',
       body: JSON.stringify(data)
     });
-    form.reset();
-    dateInput.min = new Date().toLocaleDateString('en-CA');
-    showToast('Agendamento criado com sucesso!');
+    sessionStorage.setItem('barberflow_message', 'Agendamento criado com sucesso!');
+    window.location.href = 'appointments.html';
   } catch (error) {
     showToast(error.message, 'error');
   }

@@ -48,6 +48,11 @@ button {
   cursor: pointer;
 }
 
+:focus-visible {
+  outline: 3px solid rgba(240, 203, 117, 0.75);
+  outline-offset: 3px;
+}
+
 .hidden {
   display: none !important;
 }
@@ -107,6 +112,10 @@ button {
 .btn-danger {
   color: #fff;
   background: #9c3d3d;
+}
+
+.btn-danger:hover {
+  background: #b84949;
 }
 
 .btn-block {
@@ -481,6 +490,7 @@ tbody tr:hover {
 
 .actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
@@ -501,6 +511,7 @@ tbody tr:hover {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+  animation: modal-in 0.2s ease;
 }
 
 .modal h3 {
@@ -583,6 +594,13 @@ tbody tr:hover {
   }
 }
 
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+
 button:disabled {
   cursor: not-allowed;
   opacity: 0.5;
@@ -654,6 +672,14 @@ button:disabled {
     padding: 24px 16px;
   }
 
+  .panel {
+    padding: 20px 16px;
+  }
+
+  .search-box {
+    max-width: none;
+  }
+
   .sidebar .brand span:last-child,
   .logout-btn span {
     display: none;
@@ -673,5 +699,15 @@ button:disabled {
 
   .details-list .details-full {
     grid-column: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }

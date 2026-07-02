@@ -42,6 +42,10 @@ async function initializeForm() {
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
   const data = Object.fromEntries(new FormData(form));
+  const saveButton = document.querySelector('#saveButton');
+  const originalLabel = saveButton.textContent;
+  saveButton.disabled = true;
+  saveButton.textContent = 'Salvando...';
 
   try {
     await apiRequest(appointmentId ? `/appointments/${appointmentId}` : '/appointments', {
@@ -55,6 +59,8 @@ form.addEventListener('submit', async (event) => {
     window.location.href = 'appointments.html';
   } catch (error) {
     showToast(error.message, 'error');
+    saveButton.disabled = false;
+    saveButton.textContent = originalLabel;
   }
 });
 

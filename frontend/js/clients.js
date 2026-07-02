@@ -56,6 +56,9 @@ document.querySelector('#clientForm').addEventListener('submit', async (event) =
   event.preventDefault();
   const form = event.currentTarget;
   const data = Object.fromEntries(new FormData(form));
+  const submitButton = form.querySelector('button[type="submit"]');
+  submitButton.disabled = true;
+  submitButton.textContent = 'Cadastrando...';
 
   try {
     await apiRequest('/clients', { method: 'POST', body: JSON.stringify(data) });
@@ -64,6 +67,9 @@ document.querySelector('#clientForm').addEventListener('submit', async (event) =
     await loadClients();
   } catch (error) {
     showToast(error.message, 'error');
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = 'Cadastrar cliente';
   }
 });
 
@@ -79,6 +85,12 @@ document.querySelector('#cancelClientDelete').addEventListener('click', closeCli
 
 document.querySelector('#deleteClientModal').addEventListener('click', (event) => {
   if (event.target.id === 'deleteClientModal') {
+    closeClientDeleteModal();
+  }
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
     closeClientDeleteModal();
   }
 });

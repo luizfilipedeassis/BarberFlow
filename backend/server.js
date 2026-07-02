@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const clientRoutes = require('./routes/clientRoutes');
+const appointmentRoutes = require('./routes/appointmentRoutes');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -8,6 +9,7 @@ const frontendPath = path.join(__dirname, '..', 'frontend');
 
 app.use(express.json());
 app.use('/api/clients', clientRoutes);
+app.use('/api/appointments', appointmentRoutes);
 app.use(express.static(frontendPath));
 
 app.get('/health', (req, res) => {

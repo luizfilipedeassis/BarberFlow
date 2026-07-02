@@ -4,15 +4,70 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard | BarberFlow</title>
+  <link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-  <main class="temporary-page">
-    <div>
-      <span class="brand-mark">BF</span>
-      <h1>Login realizado com sucesso</h1>
-      <p>O dashboard será desenvolvido na próxima etapa.</p>
-    </div>
-  </main>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="dashboard.html">
+        <span class="brand-mark">BF</span>
+        <span>BarberFlow</span>
+      </a>
+
+      <nav class="sidebar-nav" aria-label="Navegação principal">
+        <a class="nav-link" data-page="dashboard" href="dashboard.html">Visão geral</a>
+        <span class="nav-link nav-disabled" title="Disponível em breve">Clientes</span>
+        <span class="nav-link nav-disabled" title="Disponível em breve">Agendamentos</span>
+      </nav>
+
+      <button class="btn btn-secondary logout-btn" data-logout>
+        <span>Sair</span> →
+      </button>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="page-title">
+          <h1>Visão geral</h1>
+          <p>Acompanhe a rotina da barbearia.</p>
+        </div>
+        <button class="btn btn-primary" type="button" disabled title="Disponível após a implementação dos agendamentos">
+          + Novo agendamento
+        </button>
+      </header>
+
+      <section class="stats-grid" aria-label="Resumo da barbearia">
+        <article class="stat-card">
+          <span class="stat-label">Clientes cadastrados</span>
+          <strong class="stat-value" id="clientCount">0</strong>
+        </article>
+        <article class="stat-card">
+          <span class="stat-label">Agendamentos hoje</span>
+          <strong class="stat-value stat-accent" id="todayCount">0</strong>
+        </article>
+        <article class="stat-card">
+          <span class="stat-label">Próximos agendamentos</span>
+          <strong class="stat-value" id="upcomingCount">0</strong>
+        </article>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <div>
+            <h2>Próximos horários</h2>
+            <p>Os cinco atendimentos mais próximos.</p>
+          </div>
+        </div>
+        <div class="empty-state">
+          <strong>Nenhum horário próximo</strong>
+          Os agendamentos aparecerão aqui quando forem cadastrados.
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="../js/common.js"></script>
+  <script src="../js/dashboard.js"></script>
 </body>
 </html>

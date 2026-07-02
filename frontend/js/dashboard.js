@@ -1,0 +1,1 @@
+setupLayout('dashboard');

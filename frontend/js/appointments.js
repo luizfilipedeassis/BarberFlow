@@ -13,7 +13,7 @@ function renderAppointments(items) {
 
   container.innerHTML = `
     <table>
-      <thead><tr><th>Cliente</th><th>Serviço</th><th>Data</th><th>Horário</th><th>Status</th><th>Observação</th></tr></thead>
+      <thead><tr><th>Cliente</th><th>Serviço</th><th>Data</th><th>Horário</th><th>Status</th><th>Observação</th><th>Ações</th></tr></thead>
       <tbody>${items.map((appointment) => `
         <tr>
           <td><strong>${escapeHtml(appointment.client?.name || 'Cliente removido')}</strong></td>
@@ -22,6 +22,7 @@ function renderAppointments(items) {
           <td>${appointment.time}</td>
           <td><span class="badge badge-${appointment.status.toLowerCase()}">${appointment.status}</span></td>
           <td class="notes-preview" title="${escapeHtml(appointment.notes || '')}">${appointment.notes ? escapeHtml(appointment.notes) : '—'}</td>
+          <td><a class="btn btn-secondary btn-sm" href="appointment-form.html?id=${appointment.id}">Editar</a></td>
         </tr>`).join('')}</tbody>
     </table>`;
 }

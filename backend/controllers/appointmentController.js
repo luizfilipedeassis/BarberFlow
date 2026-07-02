@@ -22,7 +22,7 @@ function listAppointments(req, res, next) {
   }
 }
 
-function validateAppointment(body, database) {
+function validateAppointment(body, database, ignoredId = null) {
   const { clientId, service, date, time, status = 'Agendado' } = body;
 
   if (!clientId || !service?.trim() || !date || !time) {
@@ -38,7 +38,8 @@ function validateAppointment(body, database) {
   }
 
   const scheduleConflict = database.appointments.some(
-    (appointment) => appointment.date === date
+    (appointment) => appointment.id !== ignoredId
+      && appointment.date === date
       && appointment.time === time
       && appointment.status !== 'Cancelado'
   );
@@ -48,6 +49,23 @@ function validateAppointment(body, database) {
   }
 
   return null;
+}
+
+function getAppointment(req, res, next) {
+  try {
+    const database = readDatabase();
+    const appointment = database.appointments.find(
+      (item) => item.id === Number(req.params.id)
+    );
+
+    if (!appointment) {
+      return res.status(404).json({ message: 'Agendamento não encontrado.' });
+    }
+
+    return res.json(enrichAppointment(appointment, database.clients));
+  } catch (error) {
+    return next(error);
+  }
 }
 
 function createAppointment(req, res, next) {
@@ -78,4 +96,38 @@ function createAppointment(req, res, next) {
   }
 }
 
-module.exports = { listAppointments, createAppointment };
+function updateAppointment(req, res, next) {
+  try {
+    const database = readDatabase();
+    const id = Number(req.params.id);
+    const index = database.appointments.findIndex((appointment) => appointment.id === id);
+
+    if (index === -1) {
+      return res.status(404).json({ message: 'Agendamento não encontrado.' });
+    }
+
+    const validationError = validateAppointment(req.body, database, id);
+    if (validationError) {
+      return res.status(400).json({ message: validationError });
+    }
+
+    const updatedAppointment = {
+      ...database.appointments[index],
+      clientId: Number(req.body.clientId),
+      service: req.body.service.trim(),
+      date: req.body.date,
+      time: req.body.time,
+      status: req.body.status || 'Agendado',
+      notes: req.body.notes?.trim() || '',
+      updatedAt: new Date().toISOString()
+    };
+
+    database.appointments[index] = updatedAppointment;
+    writeDatabase(database);
+    return res.json(enrichAppointment(updatedAppointment, database.clients));
+  } catch (error) {
+    return next(error);
+  }
+}
+
+module.exports = { listAppointments, getAppointment, createAppointment, updateAppointment };

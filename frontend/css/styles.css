@@ -113,6 +113,12 @@ button {
   width: 100%;
 }
 
+.btn-sm {
+  min-height: 36px;
+  padding: 7px 12px;
+  font-size: 13px;
+}
+
 .form-group {
   display: grid;
   gap: 8px;

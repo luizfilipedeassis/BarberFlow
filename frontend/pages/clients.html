@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clientes | BarberFlow</title>
+  <link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="dashboard.html"><span class="brand-mark">BF</span><span>BarberFlow</span></a>
+      <nav class="sidebar-nav" aria-label="Navegação principal">
+        <a class="nav-link" data-page="dashboard" href="dashboard.html">Visão geral</a>
+        <a class="nav-link" data-page="clients" href="clients.html">Clientes</a>
+        <span class="nav-link nav-disabled" title="Disponível em breve">Agendamentos</span>
+      </nav>
+      <button class="btn btn-secondary logout-btn" data-logout><span>Sair</span> →</button>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="page-title">
+          <h1>Clientes</h1>
+          <p>Cadastre os clientes da barbearia.</p>
+        </div>
+      </header>
+
+      <section class="panel clients-form-panel">
+        <div class="panel-header">
+          <div><h2>Novo cliente</h2><p>Nome e telefone são obrigatórios.</p></div>
+        </div>
+        <form id="clientForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="name">Nome completo *</label>
+              <input id="name" name="name" maxlength="80" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Telefone *</label>
+              <input id="phone" name="phone" maxlength="20" placeholder="(00) 00000-0000" required>
+            </div>
+            <div class="form-group full">
+              <label for="email">E-mail</label>
+              <input id="email" name="email" type="email" maxlength="100" placeholder="cliente@email.com">
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Cadastrar cliente</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <div><h2>Clientes cadastrados</h2><p id="clientSummary">Carregando...</p></div>
+          <input class="search-box" id="clientSearch" aria-label="Buscar cliente" placeholder="Buscar cliente...">
+        </div>
+        <div id="clientList" class="table-wrap"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="../js/common.js"></script>
+  <script src="../js/clients.js"></script>
+</body>
+</html>

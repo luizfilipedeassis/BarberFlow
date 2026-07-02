@@ -378,6 +378,91 @@ textarea:focus {
   font-size: 18px;
 }
 
+.clients-form-panel {
+  margin-bottom: 24px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 19px;
+}
+
+.form-group.full {
+  grid-column: 1 / -1;
+}
+
+.form-actions {
+  display: flex;
+  margin-top: 24px;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 15px 12px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  white-space: nowrap;
+}
+
+th {
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+td {
+  font-size: 14px;
+}
+
+tbody tr:hover {
+  background: rgba(255, 255, 255, 0.018);
+}
+
+.search-box {
+  max-width: 280px;
+}
+
+.toast {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 20;
+  max-width: 360px;
+  padding: 14px 18px;
+  color: #fff;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  animation: slide-in 0.25s ease;
+}
+
+.toast-success {
+  background: #267147;
+}
+
+.toast-error {
+  background: #963c3c;
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
 button:disabled {
   cursor: not-allowed;
   opacity: 0.5;
@@ -434,7 +519,8 @@ button:disabled {
 }
 
 @media (max-width: 620px) {
-  .stats-grid {
+  .stats-grid,
+  .form-grid {
     grid-template-columns: 1fr;
   }
 
@@ -451,5 +537,13 @@ button:disabled {
   .sidebar .brand span:last-child,
   .logout-btn span {
     display: none;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .form-actions .btn {
+    width: 100%;
   }
 }

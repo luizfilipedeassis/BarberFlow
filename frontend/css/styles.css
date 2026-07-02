@@ -479,6 +479,46 @@ tbody tr:hover {
   text-overflow: ellipsis;
 }
 
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  padding: 20px;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.72);
+}
+
+.modal {
+  width: min(440px, 100%);
+  padding: 26px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.modal h3 {
+  margin: 0 0 10px;
+}
+
+.modal p {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.modal-actions {
+  display: flex;
+  margin-top: 24px;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
 .toast {
   position: fixed;
   right: 24px;

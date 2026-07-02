@@ -1,6 +1,7 @@
 setupLayout('appointments');
 
 let appointments = [];
+let selectedId = null;
 
 function renderAppointments(items) {
   const container = document.querySelector('#appointmentList');
@@ -22,9 +23,26 @@ function renderAppointments(items) {
           <td>${appointment.time}</td>
           <td><span class="badge badge-${appointment.status.toLowerCase()}">${appointment.status}</span></td>
           <td class="notes-preview" title="${escapeHtml(appointment.notes || '')}">${appointment.notes ? escapeHtml(appointment.notes) : '—'}</td>
-          <td><a class="btn btn-secondary btn-sm" href="appointment-form.html?id=${appointment.id}">Editar</a></td>
+          <td class="actions">
+            <a class="btn btn-secondary btn-sm" href="appointment-form.html?id=${appointment.id}">Editar</a>
+            <button class="btn btn-danger btn-sm" data-delete="${appointment.id}">Excluir</button>
+          </td>
         </tr>`).join('')}</tbody>
     </table>`;
+
+  container.querySelectorAll('[data-delete]').forEach((button) => {
+    button.addEventListener('click', () => openDeleteModal(Number(button.dataset.delete)));
+  });
+}
+
+function openDeleteModal(id) {
+  selectedId = id;
+  document.querySelector('#deleteModal').classList.remove('hidden');
+}
+
+function closeDeleteModal() {
+  selectedId = null;
+  document.querySelector('#deleteModal').classList.add('hidden');
 }
 
 async function loadAppointments() {
@@ -44,6 +62,27 @@ document.querySelector('#appointmentSearch').addEventListener('input', (event) =
       .includes(term)
   );
   renderAppointments(filteredAppointments);
+});
+
+document.querySelector('#cancelDelete').addEventListener('click', closeDeleteModal);
+
+document.querySelector('#deleteModal').addEventListener('click', (event) => {
+  if (event.target.id === 'deleteModal') {
+    closeDeleteModal();
+  }
+});
+
+document.querySelector('#confirmDelete').addEventListener('click', async () => {
+  if (!selectedId) return;
+
+  try {
+    await apiRequest(`/appointments/${selectedId}`, { method: 'DELETE' });
+    closeDeleteModal();
+    showToast('Agendamento excluído com sucesso!');
+    await loadAppointments();
+  } catch (error) {
+    showToast(error.message, 'error');
+  }
 });
 
 loadAppointments();

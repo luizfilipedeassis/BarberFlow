@@ -130,4 +130,28 @@ function updateAppointment(req, res, next) {
   }
 }
 
-module.exports = { listAppointments, getAppointment, createAppointment, updateAppointment };
+function deleteAppointment(req, res, next) {
+  try {
+    const database = readDatabase();
+    const id = Number(req.params.id);
+    const index = database.appointments.findIndex((appointment) => appointment.id === id);
+
+    if (index === -1) {
+      return res.status(404).json({ message: 'Agendamento não encontrado.' });
+    }
+
+    database.appointments.splice(index, 1);
+    writeDatabase(database);
+    return res.status(204).send();
+  } catch (error) {
+    return next(error);
+  }
+}
+
+module.exports = {
+  listAppointments,
+  getAppointment,
+  createAppointment,
+  updateAppointment,
+  deleteAppointment
+};

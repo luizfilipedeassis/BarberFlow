@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BarberFlow | Login</title>
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main class="login-page">
+    <section class="login-hero">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">BF</span>
+        <span>BarberFlow</span>
+      </a>
+
+      <div class="hero-copy">
+        <span class="eyebrow">Gestão simples. Atendimento impecável.</span>
+        <h1>Sua agenda, no seu ritmo.</h1>
+        <p>Organize clientes e horários da barbearia em um só lugar, sem complicação.</p>
+      </div>
+
+      <small class="copyright">BarberFlow © 2026</small>
+    </section>
+
+    <section class="login-panel">
+      <div class="login-card">
+        <h2>Bem-vindo</h2>
+        <p>Entre para administrar os agendamentos.</p>
+
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="user">Usuário</label>
+            <input id="user" name="user" autocomplete="username" placeholder="Digite seu usuário" required>
+          </div>
+
+          <div class="form-group login-password">
+            <label for="password">Senha</label>
+            <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Digite sua senha" required>
+          </div>
+
+          <p id="loginError" class="login-error hidden" role="alert"></p>
+          <button class="btn btn-primary btn-block login-button" type="submit">Entrar no sistema</button>
+        </form>
+
+        <div class="demo-access">
+          Acesso para apresentação: <strong>admin</strong> / <strong>admin123</strong>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/login.js"></script>
+</body>
+</html>

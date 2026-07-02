@@ -24,6 +24,7 @@ function renderAppointments(items) {
           <td><span class="badge badge-${appointment.status.toLowerCase()}">${appointment.status}</span></td>
           <td class="notes-preview" title="${escapeHtml(appointment.notes || '')}">${appointment.notes ? escapeHtml(appointment.notes) : '—'}</td>
           <td class="actions">
+            <button class="btn btn-secondary btn-sm" data-details="${appointment.id}">Detalhes</button>
             <a class="btn btn-secondary btn-sm" href="appointment-form.html?id=${appointment.id}">Editar</a>
             <button class="btn btn-danger btn-sm" data-delete="${appointment.id}">Excluir</button>
           </td>
@@ -33,6 +34,48 @@ function renderAppointments(items) {
   container.querySelectorAll('[data-delete]').forEach((button) => {
     button.addEventListener('click', () => openDeleteModal(Number(button.dataset.delete)));
   });
+  container.querySelectorAll('[data-details]').forEach((button) => {
+    button.addEventListener('click', () => openDetailsModal(Number(button.dataset.details)));
+  });
+}
+
+function openDetailsModal(id) {
+  const appointment = appointments.find((item) => item.id === id);
+  if (!appointment) return;
+
+  document.querySelector('#appointmentDetails').innerHTML = `
+    <dl class="details-list">
+      <div>
+        <dt>Cliente</dt>
+        <dd>${escapeHtml(appointment.client?.name || 'Cliente removido')}</dd>
+      </div>
+      <div>
+        <dt>Telefone</dt>
+        <dd>${escapeHtml(appointment.client?.phone || 'Não informado')}</dd>
+      </div>
+      <div>
+        <dt>Serviço</dt>
+        <dd>${escapeHtml(appointment.service)}</dd>
+      </div>
+      <div>
+        <dt>Data e horário</dt>
+        <dd>${formatDate(appointment.date)} às ${appointment.time}</dd>
+      </div>
+      <div>
+        <dt>Status</dt>
+        <dd><span class="badge badge-${appointment.status.toLowerCase()}">${appointment.status}</span></dd>
+      </div>
+      <div class="details-full">
+        <dt>Observações</dt>
+        <dd>${appointment.notes ? escapeHtml(appointment.notes) : 'Nenhuma observação cadastrada.'}</dd>
+      </div>
+    </dl>`;
+
+  document.querySelector('#detailsModal').classList.remove('hidden');
+}
+
+function closeDetailsModal() {
+  document.querySelector('#detailsModal').classList.add('hidden');
 }
 
 function openDeleteModal(id) {
@@ -82,6 +125,14 @@ document.querySelector('#confirmDelete').addEventListener('click', async () => {
     await loadAppointments();
   } catch (error) {
     showToast(error.message, 'error');
+  }
+});
+
+document.querySelector('#closeDetails').addEventListener('click', closeDetailsModal);
+
+document.querySelector('#detailsModal').addEventListener('click', (event) => {
+  if (event.target.id === 'detailsModal') {
+    closeDetailsModal();
   }
 });
 

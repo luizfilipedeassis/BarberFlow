@@ -519,6 +519,42 @@ tbody tr:hover {
   gap: 10px;
 }
 
+.modal-details {
+  width: min(620px, 100%);
+}
+
+.details-list {
+  display: grid;
+  margin: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.details-list div {
+  padding: 14px;
+  background: var(--surface-2);
+  border-radius: 9px;
+}
+
+.details-list .details-full {
+  grid-column: 1 / -1;
+}
+
+.details-list dt {
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+}
+
+.details-list dd {
+  margin: 0;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
 .toast {
   position: fixed;
   right: 24px;
@@ -629,5 +665,13 @@ button:disabled {
 
   .form-actions .btn {
     width: 100%;
+  }
+
+  .details-list {
+    grid-template-columns: 1fr;
+  }
+
+  .details-list .details-full {
+    grid-column: auto;
   }
 }

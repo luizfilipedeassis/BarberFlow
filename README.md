@@ -149,6 +149,14 @@ BarberFlow/
 
 Os clientes e agendamentos são armazenados em `backend/data/database.json`. Não é necessário instalar ou configurar um banco de dados externo.
 
+## Repositório
+
+[GitHub - BarberFlow](https://github.com/luizfilipedeassis/BarberFlow)
+
+## Vídeo de demonstração
+
+[Assistir à demonstração do BarberFlow](https://youtu.be/vUOag-XincY)
+
 ## Autor
 
 Luiz Filipe de Assis Pereira

@@ -32,7 +32,7 @@ async function initializeForm() {
         document.querySelector(`#${field}`).value = appointment[field] ?? '';
       });
     } else {
-      dateInput.min = new Date().toLocaleDateString('en-CA');
+      dateInput.min = getLocalISODate();
     }
   } catch (error) {
     showToast(error.message, 'error');

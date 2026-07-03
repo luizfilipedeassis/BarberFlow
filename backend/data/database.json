@@ -1,4 +1,24 @@
 {
-  "clients": [],
-  "appointments": []
+  "clients": [
+    {
+      "id": 1,
+      "name": "Luiz Filipe De Assis Pereira",
+      "phone": "(55) 42999-1137",
+      "email": "lfdapereira@minha.fag.edu.br",
+      "createdAt": "2026-07-03T00:06:22.095Z"
+    }
+  ],
+  "appointments": [
+    {
+      "id": 1,
+      "clientId": 1,
+      "service": "Corte tradicional",
+      "date": "2026-07-03",
+      "time": "14:30",
+      "status": "Agendado",
+      "notes": "cliente quer q corta em cima e pica atras",
+      "createdAt": "2026-07-03T00:07:43.586Z",
+      "updatedAt": "2026-07-03T00:08:03.470Z"
+    }
+  ]
 }

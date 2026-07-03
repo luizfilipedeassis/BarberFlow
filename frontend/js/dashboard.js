@@ -6,7 +6,7 @@ async function loadDashboard() {
       apiRequest('/clients'),
       apiRequest('/appointments')
     ]);
-    const today = new Date().toLocaleDateString('en-CA');
+    const today = getLocalISODate();
     const upcoming = appointments.filter(
       (appointment) => appointment.date >= today && appointment.status === 'Agendado'
     );

@@ -23,7 +23,7 @@ function listAppointments(req, res, next) {
 }
 
 function validateAppointment(body, database, ignoredId = null) {
-  const { clientId, service, date, time, status = 'Agendado' } = body;
+  const { clientId, service, date, time, status = 'Agendado', notes = '' } = body;
 
   if (!clientId || !service?.trim() || !date || !time) {
     return 'Preencha todos os campos obrigatórios.';
@@ -35,6 +35,26 @@ function validateAppointment(body, database, ignoredId = null) {
 
   if (!allowedStatuses.includes(status)) {
     return 'Status inválido.';
+  }
+
+  if (service.trim().length > 80) {
+    return 'O serviço deve possuir no máximo 80 caracteres.';
+  }
+
+  const parsedDate = new Date(`${date}T00:00:00Z`);
+  const dateIsInvalid = !/^\d{4}-\d{2}-\d{2}$/.test(date)
+    || Number.isNaN(parsedDate.getTime())
+    || parsedDate.toISOString().slice(0, 10) !== date;
+  if (dateIsInvalid) {
+    return 'Informe uma data válida.';
+  }
+
+  if (!/^\d{2}:\d{2}$/.test(time) || time < '08:00' || time > '20:00') {
+    return 'O horário deve estar entre 08:00 e 20:00.';
+  }
+
+  if (notes.trim().length > 300) {
+    return 'As observações devem possuir no máximo 300 caracteres.';
   }
 
   const scheduleConflict = database.appointments.some(

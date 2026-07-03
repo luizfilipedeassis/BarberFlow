@@ -21,8 +21,12 @@ app.use((req, res) => {
 });
 
 app.use((error, req, res, next) => {
+  if (error instanceof SyntaxError && error.status === 400 && 'body' in error) {
+    return res.status(400).json({ message: 'O JSON enviado é inválido.' });
+  }
+
   console.error(error);
-  res.status(500).json({ message: 'Ocorreu um erro interno no servidor.' });
+  return res.status(500).json({ message: 'Ocorreu um erro interno no servidor.' });
 });
 
 app.listen(port, () => {

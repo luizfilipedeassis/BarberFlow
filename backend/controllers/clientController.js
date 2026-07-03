@@ -17,8 +17,23 @@ function createClient(req, res, next) {
       return res.status(400).json({ message: 'Nome e telefone são obrigatórios.' });
     }
 
-    const database = readDatabase();
+    if (name.trim().length > 80) {
+      return res.status(400).json({ message: 'O nome deve possuir no máximo 80 caracteres.' });
+    }
+
     const normalizedPhone = phone.replace(/\D/g, '');
+    if (normalizedPhone.length < 10 || normalizedPhone.length > 11) {
+      return res.status(400).json({ message: 'Informe um telefone válido com DDD.' });
+    }
+
+    const normalizedEmail = email.trim();
+    const emailIsInvalid = normalizedEmail
+      && (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail) || normalizedEmail.length > 100);
+    if (emailIsInvalid) {
+      return res.status(400).json({ message: 'Informe um e-mail válido.' });
+    }
+
+    const database = readDatabase();
     const phoneAlreadyExists = database.clients.some(
       (client) => client.phone.replace(/\D/g, '') === normalizedPhone
     );
@@ -31,7 +46,7 @@ function createClient(req, res, next) {
       id: nextId(database.clients),
       name: name.trim(),
       phone: phone.trim(),
-      email: email.trim(),
+      email: normalizedEmail,
       createdAt: new Date().toISOString()
     };
 
